@@ -1,5 +1,5 @@
 import React from 'react'
-import { ImageBackground, StyleSheet, KeyboardAvoidingView } from 'react-native'
+import { ImageBackground, StyleSheet, KeyboardAvoidingView, View } from 'react-native'
 import { theme } from '../../Utils/Theme/Theme';
 import backgroundDot from '../../assets/background_dot.png';
 
@@ -10,7 +10,7 @@ const Background = ({ children }) => (
     style={styles.background}
   >
     <KeyboardAvoidingView style={styles.container} behavior="padding">
-      {children}
+        {children}
     </KeyboardAvoidingView>
   </ImageBackground>
 )
@@ -29,7 +29,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
+    // margin: '50%'
   },
+  children: {
+    position: "absolute"
+  }
 })
 
 export default Background
