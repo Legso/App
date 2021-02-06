@@ -1,19 +1,24 @@
 import React from 'react'
-import { ImageBackground, StyleSheet, KeyboardAvoidingView, View } from 'react-native'
+import { ImageBackground, StyleSheet, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { theme } from '../../Utils/Theme/Theme';
 import backgroundDot from '../../assets/background_dot.png';
 
-const Background = ({ children }) => (
-  <ImageBackground
-    source={backgroundDot}
-    resizeMode="repeat"
-    style={styles.background}
-  >
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
-        {children}
-    </KeyboardAvoidingView>
-  </ImageBackground>
-)
+const Background = ({ requiredStyle, children }) => {
+
+  return (
+    <ImageBackground
+      source={backgroundDot}
+      resizeMode="repeat"
+      style={styles.background}
+    >
+      <ScrollView style={styles.scrollView}>
+        <KeyboardAvoidingView style={requiredStyle ? [styles.container, requiredStyle] : [styles.container]}  behavior="padding" keyboardVerticalOffset={10}>
+            {children}
+        </KeyboardAvoidingView>
+      </ScrollView>
+    </ImageBackground>
+  )
+} 
 
 const styles = StyleSheet.create({
   background: {
@@ -33,6 +38,10 @@ const styles = StyleSheet.create({
   },
   children: {
     position: "absolute"
+  },
+  scrollView: {
+    width: '100%',
+    alignSelf: 'center',
   }
 })
 

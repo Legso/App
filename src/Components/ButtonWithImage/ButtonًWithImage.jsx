@@ -13,7 +13,8 @@ const Button = ({ mode, style, color, width, text, image, ...props }) => (
     borderColor={"#000000"}
   >
     <View style={{flexDirection:"row", }}>
-      { image ? <Image source={image}   style={{flex:2, resizeMode:"contain", marginLeft:"5%"}} /> : null}
+      { image ? <Image source={image}   style={{flex:1, resizeMode:"contain", marginLeft:"5%"}} /> : null}
+      <Text style={{flex:4}}> Test Text</Text>
     </View>
     </AwesomeButton>
 )

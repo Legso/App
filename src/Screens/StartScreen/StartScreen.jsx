@@ -2,12 +2,12 @@ import React from 'react';
 import { Background, Logo, Header, Paragraph, Button, ImageButton } from '../../Components';
 import { View } from 'react-native';
 import googleLogo from '../../../assets/google1.png';
-import facebookLogo from '../../../assets/facebook1.png';
+import facebookLogo from '../../../assets/facebook.png';
 
 export default function StartScreen() {
 
     return (
-        <Background>
+        <Background requiredStyle={{marginTop:'40%'}}>
             <Logo />
             <Header>Login Template</Header>
             <Paragraph>

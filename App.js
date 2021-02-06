@@ -5,7 +5,7 @@ import { Login, StartScreen, SignUp } from './src/Screens';
 export default function App() {
   return (
     <View style={styles.container}>
-      <SignUp />
+      <StartScreen  />
     </View>
   );
 }

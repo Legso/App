@@ -23,7 +23,7 @@ export default function Login() {
   }
 
   return (
-    <Background >
+    <Background requiredStyle={{marginTop:'40%'}}>
       <Header>Welcome back.</Header>
       <TextInput
         label="Email"

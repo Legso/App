@@ -27,7 +27,7 @@ const RegisterScreen = () => {
   }
 
   return (
-    <Background>
+    <Background requiredStyle={{marginTop:'30%'}}>
       {/* <BackButton goBack={navigation.goBack} /> */}
       <Logo />
       <Header>Create Account</Header>
