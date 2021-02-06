@@ -1,6 +1,8 @@
 import React from 'react';
-import { Background, Logo, Header, Paragraph, Button } from '../../Components';
+import { Background, Logo, Header, Paragraph, Button, ImageButton } from '../../Components';
 import { View } from 'react-native';
+import googleLogo from '../../../assets/google1.png';
+import facebookLogo from '../../../assets/facebook1.png';
 
 export default function StartScreen() {
 
@@ -23,20 +25,24 @@ export default function StartScreen() {
             <Header>Or Continue With..</Header>
             <View style={{flexDirection:"row"}}>
                     <View style={{flex:1}}>
-                        <Button 
-                            width={120}
-                            onPress={() => alert('Google Clicked')}
-                        >
-                            Google
-                        </Button>                    
-                    </View>
-                    <View style={{flex:1}>
-                        <Button 
-                            width={120}
+                    <ImageButton 
+                            // width={120}
+                            color={"white"}
                             onPress={() => alert('Facebook Clicked')}
+                            text={"Test Text"}
+                            image={facebookLogo}
                         >
-                            Facebook
-                        </Button>                    
+                        </ImageButton>                       
+                    </View>
+                    <View style={{flex:1, alignItems:"flex-end"}}>
+                        <ImageButton 
+                            // width={120}
+                            color={"white"}
+                            onPress={() => alert('Facebook Clicked')}
+                            text={"Test Text"}
+                            image={googleLogo}
+                        >
+                        </ImageButton>                    
                     </View>
             </View>
 
