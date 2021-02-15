@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { Text, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { emailValidator, passwordValidator } from '../../Utils/Validators/AuthValidators';
 import { TextInput, Background, Button, Header } from '../../Components';
-import { theme } from '../../Utils/Theme/Theme';
 
-export default function Login() {
+import { theme } from '../../Utils/Theme/Theme';
+import { signUpScreen } from '../../Utils/Constants/ScreenNames';
+
+export default function Login({ navigation }) {
   const [email, setEmail] = useState({ value: '', error: '' });
   const [password, setPassword] = useState({ value: '', error: '' });
 
@@ -58,7 +60,7 @@ export default function Login() {
       </Button>
       <View style={styles.row}>
         <Text>Don’t have an account? </Text>
-        <TouchableOpacity onPress={() => alert('Dont Have an account clicked')}>
+        <TouchableOpacity onPress={() => navigation.replace(signUpScreen)}>
           <Text style={styles.link}>Sign up</Text>
         </TouchableOpacity>
       </View>

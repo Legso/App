@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Text } from 'react-native-paper'
 import { Background, Logo, Header, Button, TextInput, } from '../../Components';
+import { loginScreen } from '../../Utils/Constants/ScreenNames';
 import { theme } from '../../Utils/Theme/Theme';
 import { emailValidator, passwordValidator, nameValidator} from '../../Utils/Validators/AuthValidators';
 
-const RegisterScreen = () => {
+const RegisterScreen = ( { navigation }) => {
   const [name, setName] = useState({ value: '', error: '' })
   const [email, setEmail] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
@@ -69,7 +70,7 @@ const RegisterScreen = () => {
       </Button>
       <View style={styles.row}>
         <Text>Already have an account? </Text>
-        <TouchableOpacity onPress={alert("Already have an account clicked")}>
+        <TouchableOpacity onPress={() => navigation.replace(loginScreen) }>
           <Text style={styles.link}>Login</Text>
         </TouchableOpacity>
       </View>

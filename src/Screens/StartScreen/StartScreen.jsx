@@ -1,10 +1,11 @@
 import React from 'react';
 import { Background, Logo, Header, Paragraph, Button, ImageButton } from '../../Components';
 import { View } from 'react-native';
+import { loginScreen, signUpScreen } from '../../Utils/Constants/ScreenNames';
 import googleLogo from '../../../assets/google1.png';
 import facebookLogo from '../../../assets/facebook.png';
 
-export default function StartScreen() {
+export default function StartScreen({ navigation }) {
 
     return (
         <Background requiredStyle={{marginTop:'40%'}}>
@@ -13,12 +14,12 @@ export default function StartScreen() {
             <Paragraph>
                 The easiest way to start with your amazing application.
             </Paragraph>
-            <Button mode="contained" onPress={() => alert('Login Clicked')}>
+            <Button mode="contained" onPress={() => navigation.navigate(loginScreen)}>
                 Login
             </Button>
             <Button
                 mode="outlined"
-                onPress={() => alert('Sign Up Clicked')}
+                onPress={() => navigation.navigate(signUpScreen)}
             >
                 Sign Up
             </Button>
@@ -32,6 +33,7 @@ export default function StartScreen() {
                             text={"Test Text"}
                             image={facebookLogo}
                         >
+                            Test
                         </ImageButton>                       
                     </View>
                     <View style={{flex:1, alignItems:"flex-end"}}>
