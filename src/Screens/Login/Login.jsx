@@ -4,7 +4,8 @@ import { emailValidator, passwordValidator } from '../../Utils/Validators/AuthVa
 import { TextInput, Background, Button, Header } from '../../Components';
 
 import { theme } from '../../Utils/Theme/Theme';
-import { signUpScreen } from '../../Utils/Constants/ScreenNames';
+import { signUpScreen, mainScreen } from '../../Utils/Constants/ScreenNames';
+import { firebaseAuth } from '../../../environment/config';
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState({ value: '', error: '' });
@@ -16,8 +17,11 @@ export default function Login({ navigation }) {
     if (emailError || passwordError) {
       setEmail({ ...email, error: emailError })
       setPassword({ ...password, error: passwordError })
-      return
+      return;
     }
+    firebaseAuth.signInWithEmailAndPassword(email.value, password.value)
+    .then(() => this.props.navigation.navigate(mainScreen))
+    .catch(error => console.log(error));
     // navigation.reset({
     //   index: 0,
     //   routes: [{ name: 'Dashboard' }],

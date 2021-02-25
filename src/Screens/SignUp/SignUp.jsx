@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Text } from 'react-native-paper'
+import { firebaseAuth } from '../../../environment/config';
 import { Background, Logo, Header, Button, TextInput, } from '../../Components';
-import { loginScreen } from '../../Utils/Constants/ScreenNames';
+import { loginScreen, mainScreen } from '../../Utils/Constants/ScreenNames';
 import { theme } from '../../Utils/Theme/Theme';
 import { emailValidator, passwordValidator, nameValidator} from '../../Utils/Validators/AuthValidators';
 
@@ -19,8 +20,15 @@ const RegisterScreen = ( { navigation }) => {
       setName({ ...name, error: nameError })
       setEmail({ ...email, error: emailError })
       setPassword({ ...password, error: passwordError })
-      return
+      return;
     }
+    
+    firebaseAuth.createUserWithEmailAndPassword( email.value, password.value)
+    .then(() => {
+      console.log("Hena")
+      this.props.navigation.navigate(mainScreen)
+    })
+    .catch(error => console.log(error));
     // navigation.reset({
     //   index: 0,
     //   routes: [{ name: 'Dashboard' }],
