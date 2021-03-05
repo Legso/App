@@ -26,7 +26,7 @@ const RegisterScreen = ( { navigation }) => {
     firebaseAuth.createUserWithEmailAndPassword( email.value, password.value)
     .then(() => {
       console.log("Hena")
-      this.props.navigation.navigate(mainScreen)
+      navigation.navigate(mainScreen)
     })
     .catch(error => console.log(error));
     // navigation.reset({

@@ -17,6 +17,31 @@ export default function StartScreen({ navigation }) {
     // Your code here
     }, []);
 
+    const googleSignIn = () => {
+        firebaseApp.auth()
+            .signInWithRedirect(googleAuthProvider)
+            .then((result) => {
+                /** @type {firebase.auth.OAuthCredential} */
+                var credential = result.credential;
+
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                var token = credential.accessToken;
+                // The signed-in user info.
+                var user = result.user;
+                // ...
+            }).catch((error) => {
+                console.log(error)
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // The email of the user's account used.
+                var email = error.email;
+                // The firebase.auth.AuthCredential type that was used.
+                var credential = error.credential;
+                // ...
+            });
+    }
+
     return (
         <Background requiredStyle={{marginTop:'40%'}}>
             {/* <Logo /> */}
@@ -39,7 +64,7 @@ export default function StartScreen({ navigation }) {
                     <ImageButton 
                             // width={120}
                             color={"white"}
-                            onPress={() => alert('Facebook Clicked')}
+                            onPress={() => alert('facebook clicked')}
                             text={"Test Text"}
                             image={facebookLogo}
                         >
@@ -50,7 +75,7 @@ export default function StartScreen({ navigation }) {
                         <ImageButton 
                             // width={120}
                             color={"white"}
-                            onPress={() => alert('Facebook Clicked')}
+                            onPress={() => googleSignIn()}
                             text={"Test Text"}
                             image={googleLogo}
                         >

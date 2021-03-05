@@ -20,7 +20,7 @@ export default function Login({ navigation }) {
       return;
     }
     firebaseAuth.signInWithEmailAndPassword(email.value, password.value)
-    .then(() => this.props.navigation.navigate(mainScreen))
+    .then(() => navigation.navigate(mainScreen))
     .catch(error => console.log(error));
     // navigation.reset({
     //   index: 0,

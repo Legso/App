@@ -11,11 +11,13 @@ const Button = ({ mode, style, color, width, text, image, ...props }) => (
     backgroundColor={ color ? color : theme.colors.primary}
     color={"000"}
     borderColor={"#000000"}
+    {...props}
   >
     <View style={{flexDirection:"row", }}>
       { image ? <Image source={image}   style={{flex:1, resizeMode:"contain", marginLeft:"5%"}} /> : null}
       <Text style={{flex:4}}> Test Text</Text>
     </View>
+
     </AwesomeButton>
 )
 
