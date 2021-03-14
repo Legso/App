@@ -1,31 +1,50 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Text } from 'react-native-paper'
-import { firebaseAuth } from '../../../environment/config';
+import { firebaseAuth, firebaseDatabase } from '../../../environment/config';
 import { Background, Logo, Header, Button, TextInput, } from '../../Components';
 import { loginScreen, mainScreen } from '../../Utils/Constants/ScreenNames';
+import { userType } from '../../Utils/Constants/enums';
 import { theme } from '../../Utils/Theme/Theme';
-import { emailValidator, passwordValidator, nameValidator} from '../../Utils/Validators/AuthValidators';
+import { emailValidator, passwordValidator, nameValidator, phoneValidator} from '../../Utils/Validators/AuthValidators';
 
 const RegisterScreen = ( { navigation }) => {
-  const [name, setName] = useState({ value: '', error: '' })
-  const [email, setEmail] = useState({ value: '', error: '' })
-  const [password, setPassword] = useState({ value: '', error: '' })
+  const [name, setName] = useState({ value: '', error: '' });
+  const [phone, setPhone] = useState({ value: '', error: '' });
+  const [email, setEmail] = useState({ value: '', error: '' });
+  const [password, setPassword] = useState({ value: '', error: '' });
 
   const onSignUpPressed = () => {
     const nameError = nameValidator(name.value)
     const emailError = emailValidator(email.value)
     const passwordError = passwordValidator(password.value)
-    if (emailError || passwordError || nameError) {
+    const phoneError = phoneValidator(phone.value)
+
+    if (emailError || passwordError || nameError || phoneError) {
       setName({ ...name, error: nameError })
       setEmail({ ...email, error: emailError })
       setPassword({ ...password, error: passwordError })
+      setPassword({ ...phone, error: phoneError })
       return;
     }
     
     firebaseAuth.createUserWithEmailAndPassword( email.value, password.value)
-    .then(() => {
-      console.log("Hena")
+    .then((res ) => {
+      firebaseDatabase.ref('users/' + res.user.uid).set({
+        name: name.value,
+        type: userType.fresh,
+        email: email.value,
+        phone: phone.value
+      }, (error) => {
+        if (error) {
+          // The write failed...
+          console.log(error)
+        } else {
+          console.log("HENA")
+          // Data saved successfully!
+        }
+      })
+      console.log("HENAIOAOAOAOAO")
       navigation.navigate(mainScreen)
     })
     .catch(error => console.log(error));
@@ -68,6 +87,15 @@ const RegisterScreen = ( { navigation }) => {
         error={!!password.error}
         errorText={password.error}
         secureTextEntry
+      />
+      <TextInput
+        label="Phone"
+        returnKeyType="next"
+        value={phone.value}
+        onChangeText={(text) => setPhone({ value: text, error: '' })}
+        error={!!phone.error}
+        errorText={phone.error}
+        keyboardType="number-pad"
       />
       <Button
         mode="contained"

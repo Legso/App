@@ -11,7 +11,7 @@ export default function StartScreen({ navigation }) {
     useEffect(() => {
         firebaseAuth.onAuthStateChanged(user => {
             if(user){
-                this.props.navigation.navigate(mainScreen)
+                navigation.navigate(mainScreen)
             }
           })
     // Your code here

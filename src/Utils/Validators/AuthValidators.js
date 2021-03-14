@@ -14,3 +14,8 @@ export function passwordValidator(password) {
     if( !regex.test(password)) return "Password must be atleast 8 characters and with a symbol, uppercase letter, lowercase letter and a number"
     return ''
 }
+export function phoneValidator(phone) {
+    if (!phone || phone.length <= 0) return "Phone Number can't be empty."
+    if (phone.length <= 10) return "Phone Number Less Than 11 Digits"
+    return ''
+}
