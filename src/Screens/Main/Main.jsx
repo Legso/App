@@ -2,7 +2,7 @@ import React from 'react'
 import { Alert, Platform, Image, View, Text, StyleSheet, Button } from 'react-native';
 import { firebaseAuth, firebaseDatabase } from '../../../environment/config';
 import { userType } from '../../Utils/Constants/enums';
-
+import { Home } from '../index';
 
 export default class Main extends React.Component {
     constructor(props) {
@@ -73,36 +73,24 @@ export default class Main extends React.Component {
         }
         else if(this.state.user.type == userType.processed){
             return (
-                <View style={styles.container}>
-                <Text>
-                    Hi { this.state.user.name}!
-                    {"\n"}
-                    Thank you so much for being here {"<3"}
-                </Text>
-                <View>
-                    <Button
-                        onPress={this.signOut}
-                        title="Sign Out"
-                    />
-                </View>
-            </View>
+                <Home />
             )
         }
         else {
             return (
                 <View style={styles.container}>
-                <Text>
-                    Hi !
-                    {"\n"}
-                    Thank you so much for being here {"<3"}
-                </Text>
-                <View>
-                    <Button
-                        onPress={this.signOut}
-                        title="Sign Out"
-                    />
+                    <Text>
+                        Hi !
+                        {"\n"}
+                        Thank you so much for being here {"<3"}
+                    </Text>
+                    <View>
+                        <Button
+                            onPress={this.signOut}
+                            title="Sign Out"
+                        />
+                    </View>
                 </View>
-            </View>
             )
         }
     }
