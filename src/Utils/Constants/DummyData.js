@@ -11,7 +11,9 @@ export const postsArray = [
         notes: 'Zoooby Zoooby zooo',
         typeOfHelp: 'Legso',
         helpeeId: '12345',
-        postId: '61890'
+        postId: '61890',
+        gender: 'male',
+        photo: 'https://images.pexels.com/photos/6565057/pexels-photo-6565057.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
     },
     {
         status: 1,
@@ -25,7 +27,9 @@ export const postsArray = [
         notes: 'Mano Besteitr Village',
         typeOfHelp: 'Legsar',
         helpeeId: '12345',
-        postId: '67190'
+        postId: '67190',
+        gender: 'male',
+        photo: 'https://images.pexels.com/photos/6565057/pexels-photo-6565057.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
     },
     {
         status: 1,
@@ -39,7 +43,9 @@ export const postsArray = [
         notes: 'Pyramids Da2eman Wa2abadan',
         typeOfHelp: 'Legso',
         helpeeId: '12345',
-        postId: '67810'
+        postId: '67810',
+        gender: 'female',
+        photo: 'https://images.pexels.com/photos/6502293/pexels-photo-6502293.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
     },
     {
         status: 1,
@@ -53,6 +59,8 @@ export const postsArray = [
         notes: 'Mesh 3ayez ab2a haza el shakhs',
         typeOfHelp: 'Legso',
         helpeeId: '12345',
-        postId: '67891'
+        postId: '67891',
+        gender: 'male',
+        photo: 'https://images.pexels.com/photos/6502299/pexels-photo-6502299.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
     }
 ]

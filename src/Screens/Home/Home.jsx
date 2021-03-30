@@ -25,10 +25,9 @@ export default class Home extends React.Component {
             <Background requiredStyle={{marginTop:'10%'}}>
                 {
                     this.state.posts.map(post => {
-                        return <Card post />
+                        return <Card post={post} />
                     })
-                }
-                <Card />              
+                }            
             </Background>
         )
     }
