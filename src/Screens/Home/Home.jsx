@@ -1,6 +1,6 @@
 import React from 'react'
 import { Alert, Platform, Image, View, Text, StyleSheet } from 'react-native';
-import { Background, Logo, Header, Button, TextInput, } from '../../Components';
+import { Background, Card } from '../../Components';
 import { firebaseAuth, firebaseDatabase } from '../../../environment/config';
 import { postsArray } from '../../Utils/Constants/DummyData';
 
@@ -22,7 +22,13 @@ export default class Home extends React.Component {
 
     render() {
         return (
-            <Background requiredStyle={{marginTop:'30%'}}>
+            <Background requiredStyle={{marginTop:'10%'}}>
+                {
+                    this.state.posts.map(post => {
+                        return <Card post />
+                    })
+                }
+                <Card />              
             </Background>
         )
     }
