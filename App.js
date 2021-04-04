@@ -3,8 +3,8 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { Login, StartScreen, SignUp, Main } from './src/Screens';
-import { loginScreen, mainScreen, signUpScreen, startScreen } from './src/Utils/Constants/ScreenNames';
+import { Login, StartScreen, SignUp, Main, PostForm, MessageScreen } from './src/Screens';
+import { loginScreen, mainScreen, signUpScreen, startScreen, postForm, messageScreen } from './src/Utils/Constants/ScreenNames';
 
 const Stack = createStackNavigator()
 
@@ -21,6 +21,8 @@ export default function App() {
       <Stack.Screen name={loginScreen} component={Login} />
       <Stack.Screen name={signUpScreen} component={SignUp} />
       <Stack.Screen name={mainScreen} component={Main} />
+      <Stack.Screen name={postForm} component={PostForm} />
+      <Stack.Screen name={messageScreen} component={MessageScreen} />
       {/* <Stack.Screen name="Dashboard" component={Dashboard} /> */}
       {/* <Stack.Screen
         name="ForgotPasswordScreen"

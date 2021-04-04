@@ -1,12 +1,27 @@
 import React from 'react'
-import { View, StyleSheet, Text, Image } from 'react-native';
-import { Paragraph } from '../index'
+import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
+import { firebaseDatabase } from '../../../environment/config';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faVenus, faCalendar, faStickyNote, faMapMarker, faInfo } from '@fortawesome/free-solid-svg-icons';
+import { faVenus, faCalendar, faStickyNote, faMapMarker, faInfo, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { postStatus } from '../../Utils/Constants/enums';
+import * as Linking from 'expo-linking';
+
 import moment from 'moment';
-const Card = ({ post, ...props }) => (
+let onClick = (postId) => {
+  firebaseDatabase.ref('post').child(postId).set({ status: postStatus.inactive})
+  console.log("Clicked", postId)
+}
+let openInWhatsapp = (phoneNumber) => {
+  Linking.openURL('whatsapp://send?text=hello&phone='+phoneNumber);
+}
+const Card = ({ post, owner, ...props }) => (
   <View style={styles.container}>
+      {owner && 
+        <TouchableOpacity style={styles.deactivate} onPress={() => {onClick(post.postId)}} >
+          <FontAwesomeIcon icon={ faTimesCircle } style={{flex:1}} size={25} />
+        </TouchableOpacity>
+      }
       <View style={{flexDirection:"row"}}>
           <View style={{flex:1, flexDirection:"column"}}>
             <View style={{flex:1, marginTop:hp('1%'), flexDirection:'row'}}>
@@ -59,12 +74,12 @@ const Card = ({ post, ...props }) => (
             </View>
           </View>
           <View style={{flex:1, flexDirection:"column"}}>
-            <View style={{flex:1, alignItems:"flex-end"}}>
+            <View style={{flex:1, marginTop:hp(1), alignItems:"flex-end"}}>
               <Image source={{uri: post.photo}} style={styles.image} />
             </View> 
-            <View style={{flex:1, alignItems:"flex-end", marginBottom:hp('-5%'), marginRight:hp('2%')}}>
+            <TouchableOpacity onPress={() => openInWhatsapp(post.phoneNumber)} style={{flex:1, alignItems:"flex-end", marginBottom:hp('-5%'), marginRight:hp('2%')}}>
               <Image source={require("../../assets/whatsapp.png")} style={styles.whatsAppImage} />
-            </View> 
+            </TouchableOpacity> 
           </View>
       </View>
   </View>
@@ -108,6 +123,12 @@ const styles = StyleSheet.create({
       overflow: "hidden",
       borderWidth: 1,
       borderColor: "#560CCE",
+    },
+    deactivate: {
+      ...StyleSheet.absoluteFillObject,
+      alignItems: 'flex-end',
+      marginTop: -hp(1),
+      marginRight: wp(1),
     }
   });
   

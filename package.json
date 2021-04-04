@@ -22,6 +22,7 @@
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
     "react-native-awesome-button": "^1.8.2",
+    "react-native-fab": "^1.0.17",
     "react-native-gesture-handler": "~1.7.0",
     "react-native-google-signin": "^2.1.1",
     "react-native-paper": "^4.7.1",
@@ -33,7 +34,8 @@
     "react-native-simple-radio-button": "^2.7.4",
     "react-native-status-bar-height": "^2.6.0",
     "react-native-svg": "^12.1.0",
-    "react-native-web": "~0.13.12"
+    "react-native-web": "~0.13.12",
+    "rn-sliding-up-panel": "^2.4.5"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"

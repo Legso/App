@@ -58,7 +58,7 @@ export default function StartScreen({ navigation }) {
             >
                 Sign Up
             </Button>
-            <Header>Or Continue With..</Header>
+            {/* <Header>Or Continue With..</Header>
             <View style={{flexDirection:"row"}}>
                     <View style={{flex:1}}>
                     <ImageButton 
@@ -81,7 +81,7 @@ export default function StartScreen({ navigation }) {
                         >
                         </ImageButton>                    
                     </View>
-            </View>
+            </View> */}
 
         </Background>
     )
