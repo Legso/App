@@ -7,15 +7,44 @@ import { faVenus, faCalendar, faStickyNote, faMapMarker, faInfo, faTimesCircle }
 import { postStatus } from '../../Utils/Constants/enums';
 import * as Linking from 'expo-linking';
 
+
+function getDistanceFromLatLonInKm(currentLocation, helpeeLocation) {
+  console.log(currentLocation, "7amooooooooo")
+  if(!currentLocation || !helpeeLocation) {
+    return "Unkown Please Contact User";
+  }
+  let lat1 = currentLocation.coords.latitude;
+  let lon1 = currentLocation.coords.longitude;
+  let lat2 = helpeeLocation.coords.latitude;
+  let lon2 = helpeeLocation.coords.longitude;
+  var R = 6371; // Radius of the earth in km
+  var dLat = deg2rad(lat2-lat1);  // deg2rad below
+  var dLon = deg2rad(lon2-lon1); 
+  var a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2)
+    ; 
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+  var d = R * c; // Distance in km
+  return d + " KM";
+}
+
+function deg2rad(deg) {
+  return deg * (Math.PI/180)
+}
+
 import moment from 'moment';
 let onClick = (postId) => {
-  firebaseDatabase.ref('post').child(postId).set({ status: postStatus.inactive})
+  firebaseDatabase.ref('posts').child(postId).update({ status: postStatus.inactive})
   console.log("Clicked", postId)
 }
 let openInWhatsapp = (phoneNumber) => {
   Linking.openURL('whatsapp://send?text=hello&phone='+phoneNumber);
 }
-const Card = ({ post, owner, ...props }) => (
+const Card = ({ post, owner, location, ...props }) => {
+  
+  return (
   <View style={styles.container}>
       {owner && 
         <TouchableOpacity style={styles.deactivate} onPress={() => {onClick(post.postId)}} >
@@ -57,7 +86,7 @@ const Card = ({ post, owner, ...props }) => (
                 <FontAwesomeIcon icon={ faMapMarker } style={{flex:1}} />
                 <View style={{flex:4, marginLeft:wp('1%')}}>
                   <Text style={styles.name}>
-                    5 KM
+                    {getDistanceFromLatLonInKm(location, post.location)}
                   </Text>
                 </View>
               </View>
@@ -83,8 +112,8 @@ const Card = ({ post, owner, ...props }) => (
           </View>
       </View>
   </View>
-)
-
+  )
+}
 const styles = StyleSheet.create({
     container: {
       flex: 1,

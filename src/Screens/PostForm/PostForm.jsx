@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { TextInput, Button } from '../../Components';
 import { firebaseAuth, firebaseDatabase } from '../../../environment/config';
-import { loginScreen, mainScreen } from '../../Utils/Constants/ScreenNames';
 import { helpTypeValidator } from '../../Utils/Validators/PostValidators';
 import { theme } from '../../Utils/Theme/Theme';
 import { Background, Header } from '../../Components';
 import { postStatus } from '../../Utils/Constants/enums';
-const radio_props = [
-  {label: 'Helpee   ', value: 0 },
-  {label: 'Helper', value: 1 }
-];
+import * as Location from 'expo-location';
 
 
 const PostForm = ( { navigation, user, uid }) => {
@@ -18,23 +14,39 @@ const PostForm = ( { navigation, user, uid }) => {
   const [notes, setNotes] = useState({ value: '', error: '' });
   const [currentUser, setUser] = useState('');
   const [currentUid, setUid] = useState('');
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
 
-    useEffect(() => {
+    useEffect(async () => {
         firebaseAuth.onAuthStateChanged(user => {
             if(user){
                 var userRef = firebaseDatabase.ref('users/' + user.uid);
                 userRef.once('value', (snapshot) => {
                     setUser(snapshot.val());
                     setUid(user.uid);
-                    console.log("HENAAAAAAAAAAA")
                 },  function (errorObject) {
                     console.log("The read failed: " + errorObject.code);
                 });
                 
             }
           })
+        let { status } = await Location.requestPermissionsAsync();
+        if (status !== 'granted') {
+          setErrorMsg('Permission to access location was denied');
+          return;
+        }
+      
+        let location = await Location.getCurrentPositionAsync({});
+        setLocation(location);
+          
     }, []);
 
+  let text = 'Waiting..';
+  if (errorMsg) {
+    text = errorMsg;
+  } else if (location) {
+    text = JSON.stringify(location);
+  }
 
   const onPostClick = () => {
     const helpTypeError = helpTypeValidator(helpType.value)
@@ -46,10 +58,7 @@ const PostForm = ( { navigation, user, uid }) => {
     let obj = {
         status: postStatus.active,
         name: currentUser.name ,
-        coordinates: {
-            Long: `41°25'01"N`,
-            Lat: `120°58'57"W`
-        },
+        location,
         phoneNumber: currentUser.phone,
         datePosted: Date.now(),
         notes: notes.value,

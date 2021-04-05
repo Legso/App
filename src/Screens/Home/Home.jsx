@@ -6,6 +6,7 @@ import { postForm } from '../../Utils/Constants/ScreenNames';
 import { userRole, postStatus } from '../../Utils/Constants/enums';
 // import { postsArray } from '../../Utils/Constants/DummyData';
 import { FAB } from 'react-native-paper';
+import * as Location from 'expo-location';
 
 export default class Home extends React.Component {
     constructor(props) {
@@ -16,8 +17,9 @@ export default class Home extends React.Component {
             uid: props.uid, 
             posts: [],
             modalVisible: false,
-            navigation: props.navigation
-        }
+            navigation: props.navigation,
+            location:{}
+        }   
         postRef.on('child_added', (data) => {
             if(data.val().status == postStatus.inactive){
                 return;
@@ -37,13 +39,28 @@ export default class Home extends React.Component {
                 postsArray.push(post);
                 this.setState({posts: postsArray})
             }
-        // addCommentElement(postElement, data.key, data.val().text, data.val().author);
         });
 
     }
     
     componentDidMount(){
         console.log("component did mount");
+        (async () => {
+            let { status } = await Location.requestPermissionsAsync();
+            if (status !== 'granted') {
+                alert("We Need the location permissions to calculate approximate distance between you and other users. We're going to try again and if you're uncomfortable  with the permissions please check the area field for each post")
+                let { status } = await Location.requestPermissionsAsync();
+                if (status == "granted"){
+                    let location = await Location.getCurrentPositionAsync({});
+                    this.setState({location});
+                    
+                }
+            }
+            else {
+                let location = await Location.getCurrentPositionAsync({});
+                this.setState({location});
+            }
+          })();   
         let self = this;
     }
 
@@ -53,7 +70,7 @@ export default class Home extends React.Component {
                 <Header> Active Posts </Header>
                 {
                     this.state.posts ? this.state.posts.map((post, i) => {
-                        return <Card post={post} owner={post.helpeeId==this.state.uid} key={i}/>
+                        return <Card post={post} owner={post.helpeeId==this.state.uid} key={i} location={this.state.location}/>
                     }) : null
                 }   
                 <FAB

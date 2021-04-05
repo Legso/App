@@ -35,7 +35,6 @@ const RegisterScreen = ( { navigation }) => {
       setPassword({ ...phone, error: phoneError })
       return;
     }
-    
     firebaseAuth.createUserWithEmailAndPassword( email.value, password.value)
     .then((res ) => {
       firebaseDatabase.ref('users/' + res.user.uid).set({
